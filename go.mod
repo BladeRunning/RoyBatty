@@ -1,4 +1,4 @@
-module SCMR
+module RoyBatty
 
 go 1.22.3
 
