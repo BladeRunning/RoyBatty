@@ -2,17 +2,17 @@ package models
 
 import "time"
 
-type PerpStorage interface {
-	List() []*Perp
-	Get(string) *Perp
-	Update(string, Perp) *Perp
-	Create(Perp)
-	Delete(string) *Perp
+type BetStorage interface {
+	List() []*Bet
+	Get(string) *Bet
+	Update(string, Bet) *Bet
+	Create(Bet)
+	Delete(string) *Bet
 }
 
-type PerpStore struct{}
+type BetStore struct{}
 
-type Perp struct {
+type Bet struct {
 	ID       string    `json:"id"`
 	Name     string    `json:"name"`
 	Birthday time.Time `json:"birthday"`
@@ -30,7 +30,7 @@ var canada = Country{ID: 2, Name: "Canada"}
 var country = Country{ID: 3, Name: "New Zealand"}
 
 var city = "Wellington"
-var perps = []*Perp{
+var Bets = []*Bet{
 	{
 		ID:       "1",
 		Name:     "Lark Davis",
@@ -40,39 +40,39 @@ var perps = []*Perp{
 	},
 }
 
-func (b PerpStore) Get(id string) *Perp {
-	for _, perps := range perps {
-		if perps.ID == id {
-			return perps
+func (b BetStore) Get(id string) *Bet {
+	for _, Bets := range Bets {
+		if Bets.ID == id {
+			return Bets
 		}
 	}
 
 	return nil
 }
 
-func (b PerpStore) List() []*Perp {
-	return perps
+func (b BetStore) List() []*Bet {
+	return Bets
 }
 
-func (b PerpStore) Create(book Perp) {
-	perps = append(perps, &book)
+func (b BetStore) Create(book Bet) {
+	Bets = append(Bets, &book)
 }
 
-func (b PerpStore) Delete(id string) *Perp {
-	for i, perp := range perps {
-		if perp.ID == id {
-			perps = append(perps[:i], (perps)[i+1:]...)
-			return &Perp{}
+func (b BetStore) Delete(id string) *Bet {
+	for i, Bet := range Bets {
+		if Bet.ID == id {
+			Bets = append(Bets[:i], (Bets)[i+1:]...)
+			return &Bet{}
 		}
 	}
 
 	return nil
 }
 
-func (b PerpStore) Update(id string, bookUpdate Perp) *Perp {
-	for i, book := range perps {
+func (b BetStore) Update(id string, bookUpdate Bet) *Bet {
+	for i, book := range Bets {
 		if book.ID == id {
-			perps[i] = &bookUpdate
+			Bets[i] = &bookUpdate
 			return book
 		}
 	}

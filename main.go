@@ -1,7 +1,7 @@
 package main
 
 import (
-	"SCMR/models"
+	"RoyBatty/models"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
@@ -16,23 +16,23 @@ func main() {
 		w.Write([]byte("OK"))
 	})
 
-	r.Mount("/perps", PerpRoutes())
+	r.Mount("/Bets", BetRoutes())
 
 	http.ListenAndServe(":3000", r)
 }
 
-func PerpRoutes() chi.Router {
+func BetRoutes() chi.Router {
 	r := chi.NewRouter()
 
-	perpHandler := PerpHandler{
-		storage: models.PerpStore{},
+	BetHandler := BetHandler{
+		storage: models.BetStore{},
 	}
 
-	r.Get("/", perpHandler.ListPerps)
-	r.Post("/", perpHandler.CreatePerp)
-	r.Get("/{id}", perpHandler.GetPerp)
-	r.Put("/{id}", perpHandler.UpdatePerp)
-	r.Delete("/{id}", perpHandler.DeletePerp)
+	r.Get("/", BetHandler.ListBets)
+	r.Post("/", BetHandler.CreateBet)
+	r.Get("/{id}", BetHandler.GetBet)
+	r.Put("/{id}", BetHandler.UpdateBet)
+	r.Delete("/{id}", BetHandler.DeleteBet)
 
 	return r
 }
